@@ -33,6 +33,20 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+footer {
+  font-size: 14px;
+  color: rgb(184, 184, 184);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #070707;
+  border-top: 5px solid #070707;
+}
+
+footer p {
+  margin: 20px;
+}
+
 .aot {
   font-family: 'Goth Titan';
   font-weight: normal;
@@ -202,6 +216,31 @@ body::-webkit-scrollbar {
 @keyframes move {
   100% {
       transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
+}
+
+.custom-shape-divider-bottom-1714839589 {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1714839589 svg {
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 72px;
+}
+
+.custom-shape-divider-bottom-1714839589 .shape-fill {
+  fill: #070707;
+}
+
+/** For mobile devices **/
+@media (max-width: 767px) {
+  .custom-shape-divider-bottom-1714839589 svg {
+      width: calc(100% + 1.3px);
+      height: 41px;
   }
 }
 
