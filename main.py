@@ -1,40 +1,61 @@
 from bs4 import BeautifulSoup
 import requests
-import time
 import json
+import logging
+import logging.handlers
+import os
+
+import requests
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger_file_handler = logging.handlers.RotatingFileHandler(
+    "status.log",
+    maxBytes=1024 * 1024,
+    backupCount=1,
+    encoding="utf8",
+)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger_file_handler.setFormatter(formatter)
+logger.addHandler(logger_file_handler)
+
+try:
+    SOME_SECRET = os.environ["SOME_SECRET"]
+except KeyError:
+    SOME_SECRET = "Token not available!"
+    #logger.info("Token not available!")
+    #raise
 
 
-def get_data():
-  html_text = requests.get('https://myanimelist.net/profile/Samy_only').text
-
-  soup = BeautifulSoup(html_text, 'lxml')
-  anime_all = soup.find('div', class_='stats anime')
-  anime_list = anime_all.find_all('span', class_='di-ib fl-r lh10')
-  anime_list_2 = anime_all.find_all('span', class_='di-ib fl-r')
-
-  manga_all = soup.find('div', class_='stats manga')
-  manga_list = manga_all.find_all('span', class_='di-ib fl-r')
+if __name__ == "__main__":
+    logger.info(f"Token value: {SOME_SECRET}")
 
 
-  wached_episodes = anime_list_2[2].text
-  wached_anime = anime_list[1].text
-  read_manga = manga_list[2].text
-  print(f'Wached Episode : {wached_episodes}')
-  print(f'Wached Anime : {wached_anime}')
-  print(f'Read Manga : {read_manga}') 
 
-  dictionary = {
-    "episode": wached_episodes,
-    "anime": wached_anime,
-    "manga": read_manga
-  }
+    html_text = requests.get('https://myanimelist.net/profile/Samy_only').text
 
-  with open("sample.json", "w") as outfile:
-    json.dump(dictionary, outfile)
+    soup = BeautifulSoup(html_text, 'lxml')
+    anime_all = soup.find('div', class_='stats anime')
+    anime_list = anime_all.find_all('span', class_='di-ib fl-r lh10')
+    anime_list_2 = anime_all.find_all('span', class_='di-ib fl-r')
+
+    manga_all = soup.find('div', class_='stats manga')
+    manga_list = manga_all.find_all('span', class_='di-ib fl-r')
 
 
-if __name__ == '__main__':
-  while True:
-    get_data()
-    time.sleep(7200)
-    
+    wached_episodes = anime_list_2[2].text
+    wached_anime = anime_list[1].text
+    read_manga = manga_list[2].text
+    print(f'Wached Episode : {wached_episodes}')
+    print(f'Wached Anime : {wached_anime}')
+    print(f'Read Manga : {read_manga}') 
+
+    dictionary = {
+      "episode": wached_episodes,
+      "anime": wached_anime,
+      "manga": read_manga
+    }
+
+    with open("sample.json", "w") as outfile:
+      json.dump(dictionary, outfile)
+
