@@ -36,5 +36,5 @@ def get_data():
 if __name__ == '__main__':
   while True:
     get_data()
-    time.sleep(43200)
+    time.sleep(7200)
     
