@@ -1,0 +1,25 @@
+import requests
+import json
+
+grant_type = 5
+
+url = "https://myanimelist.net/v1/oauth2/token"
+data = {
+    "client_id": "e642cc09b2bfe9b5de753b7b67bbf5ef",
+    "client_secret": "04c3b497457c6a1af959e4392c8e5f682eca26217018197f60c53e633f506a15",
+    "code": "def50200ad178aaa25f9e299f6eefec547d44e88e61d4cc15c1a8b0863778c8c4fb6253ac29c3cbf2094ed746f0d83da45551abef305c1ee8d7662265e323c9c053bd791eaf797a9a6572805e236dafbf2e972c577a79ba24361d6cbf4a1d871b552893c9faf2941d6ca2249b0039ac326f87b3b5282befcf537f3df3765639e98e7b930b8f502c62df90ac87f821723c8c3067473706021c6fa319d5dee92012700ffafe5f723044bfb7f77a43d94dc43a42ae86f805032f346ed524da4e921e5c2c87036bac3084ffc61d5f5eeac29d54720bd65e0488510861ef5d1c9fe77c715b1fe1955b2822d427ff1aadffb793a80ba3d79515a3203a0b3d39572bce3ae014d2da98eaac460928c8b8fbd57f6dca1c0c70e3d1259df9776025685a9aa9ba95d1c39c1a7de30c9ff3af02909f94d87b499c26eccf922f8ab6766d67e98c76acf4e4783474927ff41c469be69313306895e4a5b78cb2bef8965e94a36969e169c125be057118cc4a5c057776ec0639226d88b5a6f8b6a53a0742c120324ea3b93a513a9b67d266a6585d6341a55686ee6df9263a08608e3c6c9e1a3aac2858c6b67f0eee4855e9f6af06759194d85ea9f26a253d0167ed15c3a04f42bd03764a2aaf1743d9f2bebf510ce6eeee5699871cf2be5fd1a0aa57636e5f9a58c385d4b97e6f54b8d2590",
+		"code_verifier": "KFAILYWBT632KBDddgFwp6HI190sypYmyukP2pSsV8miPN1pdGZHkz9bWV2Vn4GMybUKIg3H3gqIo1hKn-U8cgpPwhxZAf9cicQXN1ZFOQCnCaPkRIYRvdxvjrb4kRGL",
+		"grant_type": grant_type,
+}
+
+
+# A POST request to tthe API
+post_response = requests.post(url, json=data)
+
+# Print the response
+post_response_json = post_response.json()
+print(post_response_json)
+print(grant_type)
+
+with open("https.json", "w") as outfile:
+  json.dump(post_response_json, outfile)
